@@ -1,26 +1,34 @@
-/*---state (eg rating,feedbackText)is just data that is immutable ---*/
-/*---we can instead RESET the state using a function---*/
-/*useState is a hook, everything starting with use is hook */
-import { useState } from "react"
+import Card from './shared/Card'
+import PropTypes from 'prop-types'
+/*from package react-icons, we want library-> font awesome(fa) library*/
+/*from this library we want FaTimes meaning that cross symbol*/
+import {FaTimes} from 'react-icons/fa'
 
-function FeedbackItem() {
-    const [rating,setRating] = useState(7) //default value of rating is 7
-    const [feedbackText, setFeedback] = useState('This is an example Feedback.')
+function FeedbackItem({item, handleDelete}) 
+{
+    /*---These are component level States---*/
+    //const [rating,setRating] = useState(7)
+    //const [feedbackText,setFeedback] = useState('This is an example feedback')
+    
 
-    const handleClick = ()=>{
-        //rating  = 20 //we can not do this
-        //setRating(20) //we can do this as well
-        setRating((prev)=>{
-            return prev + 1
-        })
-    }
-  return (
-    <div className="card">
-        <div className="num-display">{rating}</div>
-        <div className="text-display">{feedbackText}</div>
-        <button onClick = {handleClick}>Click me!</button>
-    </div>
-  )
+  //   return (
+  //   <div className="card">
+  //       <div className="num-display">{item.rating}</div>
+  //       <div className="text-display">{item.feedbackText}</div>
+  //   </div>
+  // )
+
+  /*---Here actually deleteFeedback function is called---*/
+  /*---this function handleDelete is an example of "props drill"---*/
+    return(
+      <Card reverse={false}>
+        <div className="num-display">{item.rating}</div> 
+        <button className='close' onClick={()=>handleDelete(item.id)}><FaTimes/></button>
+        <div className="text-display">{item.feedbackText}</div>
+      </Card>
+    )
 }
-
+FeedbackItem.propTypes = {
+  item : PropTypes.object.isRequired
+}
 export default FeedbackItem

@@ -3,7 +3,8 @@ import FeedbackList from "./components/FeedbackList";
 import { useState } from "react";
 import FeedbackData from "./data/FeedbackData" 
 import FeedbackStats from './components/FeedbackStats'
-
+import FeedbackForm from './components/FeedbackForm'
+import {v4 as uuidv4} from 'uuid'
 
 function App()
 {   
@@ -15,12 +16,22 @@ function App()
             setFeedback(feedbacks.filter((item)=> item.id !== id))        
         }
     }
+    const addFeedback = (feedback) =>{
+        const newFeedback = {
+            id: parseInt(uuidv4()),
+            feedbackText : feedback.review,
+            rating : feedback.rating
+        }
+        /*... = spread operator, fills the array with feedbacks' contents*/
+        setFeedback([newFeedback,...feedbacks])
+    }
     return(
         <>
             <Header />
-            <FeedbackStats feedbackList = {feedbacks} />
             <div className="container">
-            <FeedbackList feedbacks = {feedbacks} handleDelete={deleteFeedback}/>
+                <FeedbackForm handleInsert = {addFeedback}/>
+                <FeedbackStats feedbackList = {feedbacks} />
+                <FeedbackList feedbacks = {feedbacks} handleDelete={deleteFeedback}/>
             </div>
         </>
     )
