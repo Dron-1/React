@@ -16,9 +16,9 @@ function App()
             setFeedback(feedbacks.filter((item)=> item.id !== id))        
         }
     }
-    const addFeedback = (feedback) =>{
+    const addFeedback = (feedback) => {
         const newFeedback = {
-            id: parseInt(uuidv4()),
+            id: uuidv4(),
             feedbackText : feedback.review,
             rating : feedback.rating
         }
