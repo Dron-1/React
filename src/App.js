@@ -1,4 +1,4 @@
-//Stage 3
+//Stage 4
 import Header from "./components/Header";
 import FeedbackList from "./components/FeedbackList";
 import { useState } from "react";
@@ -6,6 +6,10 @@ import FeedbackData from "./data/FeedbackData"
 import FeedbackStats from './components/FeedbackStats'
 import FeedbackForm from './components/FeedbackForm'
 import {v4 as uuidv4} from 'uuid'
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import AboutPage from "./pages/AboutPage";
+import AboutLinkIcon from "./components/AboutLinkIcon";
+import Post from "./components/Post";
 
 function App()
 {   
@@ -27,14 +31,28 @@ function App()
         setFeedback([newFeedback,...feedbacks])
     }
     return(
-        <>
+        <Router>
             <Header />
             <div className="container">
-                <FeedbackForm handleInsert = {addFeedback}/>
-                <FeedbackStats feedbackList = {feedbacks} />
-                <FeedbackList feedbacks = {feedbacks} handleDelete={deleteFeedback}/>
+                <Routes>
+                    <Route exact path="/" element = {
+                        <>
+                            <FeedbackForm handleInsert = {addFeedback}/>
+                            <FeedbackStats feedbackList = {feedbacks} />
+                            <FeedbackList feedbacks = {feedbacks} handleDelete={deleteFeedback}/>
+                        </>
+                    } />
+                    
+                    <Route path="/about" element={<AboutPage />} />
+                    {/* localhost:3000/200/dron (Imp-all params must be there in link)*/}
+                    {/* <Route path="/post/:status/:name" element={<Post />} /> */}
+                    {/* localhost:3000/200/show ->  */}
+                    {/* asterisk * after param status means nested link or routing is applicable */}
+                    <Route path="/post/:status/*" element={<Post />} />
+                </Routes>
+                <AboutLinkIcon />
             </div>
-        </>
+        </Router>
     )
 }
 
