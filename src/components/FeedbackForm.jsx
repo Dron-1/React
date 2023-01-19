@@ -1,25 +1,35 @@
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
 import Card from './shared/Card'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
 import FeedbackContext from '../context/FeedbackContext'
 
 function FeedbackForm() {
-  const [review,setReview] = useState('')
+  const [feedbackText,setFeedbackText] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [btnDisabled,setBtnDisabled] = useState(true)
   const [rating, setRating] = useState(10)
   
-  const {addFeedback} = useContext(FeedbackContext)
+  const {addFeedback, editFeedback, updateFeedback} = useContext(FeedbackContext)
+  
+  useEffect(() => {
+    console.log("hello world",editFeedback);
+    if(editFeedback.editFlag === true)
+    {
+      setBtnDisabled(false)
+      setFeedbackText(editFeedback.item.feedbackText)
+      setRating(editFeedback.item.rating)
+    }
+  },[editFeedback])
 
   const handleChangeReview = (e) => {
-    setReview(e.target.value);
-    if(review === '' )
+    setFeedbackText(e.target.value);
+    if(feedbackText === '' )
     {
       setErrorMessage(null)
       setBtnDisabled(true)
     }
-    else if(review !== '' && review.trim().length <= 10 )
+    else if(feedbackText !== '' && feedbackText.trim().length <= 10 )
     {
       setErrorMessage('Your review must be more than 10 characters.')
       setBtnDisabled(true)
@@ -33,15 +43,23 @@ function FeedbackForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(review.trim().length >=10)
+    if(feedbackText.trim().length >=10)
     {
       const newFeedback = {
-        review : review,
+        feedbackText : feedbackText,
         rating : rating,
       }
       console.log(newFeedback);
-      addFeedback(newFeedback);
-      setReview('')
+      if(editFeedback.editFlag === true)
+      {
+        console.log("I am called")
+        updateFeedback(editFeedback.item.id,newFeedback)  
+      }
+      else{
+        addFeedback(newFeedback);
+      }
+
+      setFeedbackText('')
     }
   }
 
@@ -51,7 +69,7 @@ function FeedbackForm() {
             <h2>How would you like to rate your service with us?</h2>
             <RatingSelect select = {(rating) => setRating(rating)}/>
             <div className="input-group">
-                <input type="text" onChange = {handleChangeReview} placeholder='Write your review here..' value = {review}/>
+                <input type="text" onChange = {handleChangeReview} placeholder='Write your review here..' value = {feedbackText}/>
                 <Button type="submit" isDisabled = {btnDisabled}>Send</Button>
             </div>
             {/* This below line means if errorMessage is not empty then a div container will be created */}

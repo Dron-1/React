@@ -1,9 +1,15 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import FeedbackContext from '../context/FeedbackContext';
 
 function RatingSelect({select}) {
   const [selected, setSelected] = useState(10);
+  const { editFeedback } = useContext(FeedbackContext);
+
+  useEffect(() => {
+    setSelected(editFeedback.item.rating)
+  },[editFeedback]);
+
   const handleChange = (e)=>{
-    /*--- "+" is used to convert e.target.value into number---*/ 
     setSelected(+e.currentTarget.value)
     /*---here we are doing nothing, just calling the function select()---*/
     /*--- which we get as a props---*/
