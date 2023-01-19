@@ -56,6 +56,7 @@ export const FeedbackProvider = ({children}) => {
         feedbacks.map((item) => (item.id === id ? {...item,...updatedItem} : item))
        )
        console.log(feedbacks)
+       //again setting the editFlag to false once updation is done. 
        setEditFeedback({
         item : updatedItem,
         editFlag : false

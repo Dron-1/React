@@ -21,6 +21,7 @@ function Card({children,reverse}) {
     )
 
 }
+/*changed default property of Card, reverse from true to false*/
 Card.defaultProps = {
     reverse:false
 }

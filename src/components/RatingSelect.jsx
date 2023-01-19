@@ -1,10 +1,12 @@
+/*| new hook useEffect is used |*/
 import { useState, useContext, useEffect } from 'react'
 import FeedbackContext from '../context/FeedbackContext';
 
 function RatingSelect({select}) {
   const [selected, setSelected] = useState(10);
   const { editFeedback } = useContext(FeedbackContext);
-
+  
+  /*| whenever editFeedback is changed the rating selected in UI is going to changes |*/
   useEffect(() => {
     setSelected(editFeedback.item.rating)
   },[editFeedback]);
@@ -12,7 +14,7 @@ function RatingSelect({select}) {
   const handleChange = (e)=>{
     setSelected(+e.currentTarget.value)
     /*---here we are doing nothing, just calling the function select()---*/
-    /*--- which we get as a props---*/
+    /*--- which we get as a props, this func actually gives the value of rating eg 1,2,3 etc---*/
     select(+e.currentTarget.value)
   }
   return (

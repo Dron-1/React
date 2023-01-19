@@ -1,3 +1,5 @@
+/* |---------------Important now review is changed to feedbackText and setReview to setFeddbackText-----------| */
+/*In Stage 5 added new hook, useEffect, added context to get the data*/
 import {useState, useContext, useEffect} from 'react'
 import Card from './shared/Card'
 import Button from './shared/Button'
@@ -10,8 +12,13 @@ function FeedbackForm() {
   const [btnDisabled,setBtnDisabled] = useState(true)
   const [rating, setRating] = useState(10)
   
+  /* getting functions addFeedback,updateFeedback and the object editFeedback from our context - FeedbackContext */
   const {addFeedback, editFeedback, updateFeedback} = useContext(FeedbackContext)
   
+  /* | useEffect(callback,[array of dependencies]) |*/
+  /* | useEffect() is called and callback function is executed every time when any element from |*/
+  /* | dependency array is changed. Imp point- this hook is called atleast once when the page is loaded |*/
+  /* | even if there is no dependencies |*/
   useEffect(() => {
     console.log("hello world",editFeedback);
     if(editFeedback.editFlag === true)
@@ -50,6 +57,8 @@ function FeedbackForm() {
         rating : rating,
       }
       console.log(newFeedback);
+      /* | if editFlag of editFeedback is true, it means the review is getting submitted after edit |*/
+      /* | so we handle it separately in this case |*/
       if(editFeedback.editFlag === true)
       {
         console.log("I am called")
