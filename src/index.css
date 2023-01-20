@@ -26,9 +26,7 @@ ul {
 header {
   height: 70px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center; 
   margin-bottom: 30px;
 }
 
@@ -190,6 +188,7 @@ input:focus {
 .about-link {
   display: flex;
   justify-content: flex-end;
+  margin-right: 10px;
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
