@@ -1,0 +1,29 @@
+{
+  "feedbacks": [
+    {
+      "id": 2,
+      "feedbackText": "this is the feedback 2 coming from json file",
+      "rating": 7
+    },
+    {
+      "feedbackText": "lets add dome more feedbacks",
+      "rating": 9,
+      "id": 3
+    },
+    {
+      "feedbackText": "this is a  test comment [updatwd}",
+      "rating": 8,
+      "id": 4
+    },
+    {
+      "feedbackText": "adding new one [updated]",
+      "rating": 7,
+      "id": 5
+    },
+    {
+      "feedbackText": "new one added none",
+      "rating": 5,
+      "id": 6
+    }
+  ]
+}
